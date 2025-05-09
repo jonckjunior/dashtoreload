@@ -31,7 +31,7 @@ public partial class Player : Node2D {
         else {
             var dashAcceleration = (float)0.5;
             dashVelocity = dashVelocity.Lerp(dashDirection, dashAcceleration);
-            Position = Position + dashVelocity;
+            Position += dashVelocity;
 
             var tol = (float)0.1;
             var diff = (GlobalPosition - dashPositionEnd).Length();
