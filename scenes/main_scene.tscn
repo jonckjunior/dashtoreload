@@ -1,0 +1,103 @@
+[gd_scene load_steps=13 format=3 uid="uid://bsy2w2haiitki"]
+
+[ext_resource type="Script" uid="uid://dvryskn4jioyx" path="res://scenes/Player.cs" id="1_w2twt"]
+[ext_resource type="Texture2D" uid="uid://bh4imoh3c7isn" path="res://media/small_circle.png" id="2_7ykc4"]
+[ext_resource type="Texture2D" uid="uid://b754fh4ebp6nk" path="res://media/hand.png" id="3_pu3yx"]
+[ext_resource type="Texture2D" uid="uid://dnhmgwxsao7ua" path="res://media/alvo.png" id="4_gubc5"]
+[ext_resource type="Script" uid="uid://bk10xdhhxhdce" path="res://scenes/MouseCursor.cs" id="5_rt2n2"]
+[ext_resource type="Script" uid="uid://bdydor0gwr2iq" path="res://scenes/TriangleBoss.cs" id="6_c16ls"]
+[ext_resource type="Texture2D" uid="uid://cuskhrp7ojk2c" path="res://media/boss_sprite.png" id="6_rt2n2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rt2n2"]
+radius = 12.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gubc5"]
+size = Vector2(320, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rt2n2"]
+size = Vector2(320, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c16ls"]
+size = Vector2(20, 218)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_18nlu"]
+size = Vector2(20, 218)
+
+[node name="MainScene" type="Node2D"]
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 320.0
+offset_bottom = 180.0
+color = Color(0, 0, 0, 1)
+
+[node name="TriangleBoss" type="Node2D" parent="."]
+modulate = Color(0.948049, 0.952225, 0.956652, 1)
+position = Vector2(61, 111)
+script = ExtResource("6_c16ls")
+
+[node name="Sprite" type="Sprite2D" parent="TriangleBoss"]
+texture_filter = 1
+texture = ExtResource("6_rt2n2")
+
+[node name="Hitbox" type="Area2D" parent="TriangleBoss"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriangleBoss/Hitbox"]
+visible = false
+position = Vector2(88, 71)
+shape = SubResource("CircleShape2D_rt2n2")
+
+[node name="Player" type="Node2D" parent="."]
+position = Vector2(298, 161)
+script = ExtResource("1_w2twt")
+
+[node name="Body" type="Sprite2D" parent="Player"]
+texture_filter = 1
+texture = ExtResource("2_7ykc4")
+
+[node name="Hand" type="Sprite2D" parent="Player"]
+position = Vector2(10, 0)
+rotation = 0.785398
+texture = ExtResource("3_pu3yx")
+
+[node name="MouseCursor" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("4_gubc5")
+script = ExtResource("5_rt2n2")
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Top" type="ColorRect" parent="Walls"]
+offset_right = 320.0
+offset_bottom = 1.0
+
+[node name="Bottom" type="ColorRect" parent="Walls"]
+offset_top = 179.0
+offset_right = 320.0
+offset_bottom = 180.0
+
+[node name="Left" type="ColorRect" parent="Walls"]
+offset_right = 1.0
+offset_bottom = 180.0
+
+[node name="Right" type="ColorRect" parent="Walls"]
+offset_left = 319.0
+offset_right = 320.0
+offset_bottom = 180.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
+
+[node name="Top" type="CollisionShape2D" parent="Walls/StaticBody2D"]
+position = Vector2(160, -9)
+shape = SubResource("RectangleShape2D_gubc5")
+
+[node name="Bottom" type="CollisionShape2D" parent="Walls/StaticBody2D"]
+position = Vector2(160, 189)
+shape = SubResource("RectangleShape2D_rt2n2")
+
+[node name="Left" type="CollisionShape2D" parent="Walls/StaticBody2D"]
+position = Vector2(-9, 90)
+shape = SubResource("RectangleShape2D_c16ls")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D"]
+position = Vector2(329, 90)
+shape = SubResource("RectangleShape2D_18nlu")
